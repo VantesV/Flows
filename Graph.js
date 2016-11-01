@@ -10,7 +10,7 @@ class Vertex {
   /*
    *  Add an edge connecting this vertex to the given vertex v to the adjacency list. 
    *  If this edge already exists, the adjacency list is left unchanged. 
-  */
+   */
   addEdge(v) {
     if (!this.connectedTo(v)) {
       this.edges.push(new Edge(v));
@@ -118,16 +118,11 @@ class Graph {
   }
 
   /*
-   *  Return true iff there exists an edge between the two given vertices in this graph. 
-   *  Otherwise return false. 
+   *  Return true iff there exists an edge (v1, v2) in this graph. Otherwise  
+   *  return false. 
    */
   hasEdge(v1, v2) {
-    for (var i = 0; i < v1.edges.length; i++) {
-      if (v1.edges[i].neighbor == v2) {
-        return true
-      }
-    }
-    return false; 
+    return v1.connectedTo(v2); 
   }
 
   /*
@@ -190,5 +185,6 @@ a = g.vertices[0];
 b = g.vertices[1]; 
 g.addEdge(a, b);
 console.log(g.hasEdge(a, b));
-g.removeEdge(b, a); 
-console.log(g.hasEdge(a, b));
+g.removeEdge(a, b); 
+c = g.hasEdge(a, b); 
+console.log(c);
