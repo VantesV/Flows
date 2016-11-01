@@ -1,4 +1,4 @@
-var Vertex = function(name) {
+function Vertex(name) {
 	this.name = name; 
 	this.edges = [] 
 }; 
@@ -12,7 +12,7 @@ Vertex.prototype.equals(v) {
 
 }
 
-var Edge = function(neigbor) {
+function Edge(neigbor) {
 	this.weight = 0; 
 	this.neigbor = neighbor; 
 }
@@ -26,7 +26,7 @@ Edge.prototype.equals(e) {
 
 }
 
-var Graph = function() {
+function Graph() {
 	this.vertices = []; 
 	this.isDirected = false; 
 }
