@@ -28,7 +28,6 @@ Edge.prototype.equals(e) {
 
 var Graph = function() {
 	this.vertices = []; 
-	this.isFlowNetwork = false; 
 	this.isDirected = false; 
 }
 
@@ -114,6 +113,7 @@ Graph.prototype.removeEdge(v1, v2) {
 		}
 	}
 
+	// If graph is undirected, remove the other direction 
 	if(!this.isDirected) {
 		for (i = 0; i < v2.edges.length; i++) {
 			if (v2.edges[i].neigbor === v1) {
@@ -136,4 +136,30 @@ Graph.prototype.pathExists(v1, v2) {
 
 }
 
-console.log("Punani");
+/*
+ *	Return true iff there exists and cycles in this graph. 
+ *
+ * 	@return {bool}
+ */
+Graph.prototype.isCycle() {
+
+}
+
+/*
+ * 	Return true iff this graph is connected. 
+ *
+ * 	@return {bool}
+*/
+Graph.prototype.isConnected() {
+
+}
+
+/*
+ *	Return true iff this graph is a tree. 
+*/
+Graph.prototype.isTree() {
+	return !this.hasCycle() && this.isConnected(); 
+}
+
+
+
