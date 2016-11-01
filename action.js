@@ -10,7 +10,7 @@ const ctx = canv.getContext('2d');
 var draw = window.draw = (e) => {
   const pos = getPosition(canv, e);
   ctx.beginPath();
-  ctx.arc(pos.x, pos.y, 49, 0, 2*Math.PI);
+  ctx.arc(pos.x, pos.y, 20, 0, 2*Math.PI);
   ctx.closePath();
   ctx.stroke();
 };
