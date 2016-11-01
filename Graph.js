@@ -3,9 +3,27 @@ var Vertex = function(name) {
 	this.edges = [] 
 }; 
 
+/*
+ *	Return true iff the given vertex is equivalent to this. 
+ *
+ * 	@param {Vertex} v
+ */
+Vertex.prototype.equals(v) {
+
+}
+
 var Edge = function(neigbor) {
 	this.weight = 0; 
 	this.neigbor = neighbor; 
+}
+
+/*
+ *	Return True iff the given edge is equivalent to this. 
+ *
+ *	@param {Edge} e
+*/
+Edge.prototype.equals(e) {
+
 }
 
 var Graph = function() {
@@ -14,7 +32,14 @@ var Graph = function() {
 	this.isDirected = false; 
 }
 
+/*
+ * 	Return true iff the given Graph is equivalent to this. 
+ *
+ * @param {Graph} g
+*/
+Graph.prototype.equals(g) {
 
+}
 
 /*
  *	Add a vertex with the given name to the graph. 
@@ -35,7 +60,9 @@ Graph.prototype.addVertex(name) {
  * 	@param {string} name The name of the vertex to be removed. 
  */
 Graph.prototype.removeVertex(name) {
-	vertex = this.getVertex(name)
+	vertex = this.getVertex(name);
+	index = this.vertices.indexOf(vertex); 
+	this.vertices.splice(index, 1); 
 }
 
 /*
@@ -64,16 +91,37 @@ Graph.prototype.getVertex(name) {
  */
 Graph.prototype.addEdge(v1, v2, weight) {
 
+	v1.edges.push(new Edge(v2, weight)); 
+
+	// If undirected graph, add the other direction as well 
+	if (!this.isDirected) {
+		v2.edges.push(new Edge(v1, weight))
+	}
 }
 
 /*
- *	Remove the given edge from the graph. If this edge does not exist in the 
- * 	graph, the graph is left unchanged. 
+ *	Remove the any edges between the given vertices from the graph. If one of the
+ *  given vertices does not exist in this graph, the graph is left unchanged. 
  *
- * 	@param {Edge} e The edge to be removed
+ * 	@param {Vertex} v1 
+ *	@param {Vertex} v2
  */
-Graph.prototype.removeEdge(e) {
+Graph.prototype.removeEdge(v1, v2) {
+	for (i = 0; i < v1.edges.length; i++) {
+		if (v1.edges[i].neigbor === v2) {
+			v1.edges.splice(i, 1);
+			break; 
+		}
+	}
 
+	if(!this.isDirected) {
+		for (i = 0; i < v2.edges.length; i++) {
+			if (v2.edges[i].neigbor === v1) {
+				v2.edges.splice(i, 1);
+				return; 
+			}
+		}
+	}
 }
 
 /*
@@ -88,3 +136,4 @@ Graph.prototype.pathExists(v1, v2) {
 
 }
 
+console.log("Punani");
