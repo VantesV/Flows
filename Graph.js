@@ -14,49 +14,77 @@ var Graph = function() {
 	this.isDirected = false; 
 }
 
+
+
 /*
-	Add a vertex with the given name to the graph. 
-*/
+ *	Add a vertex with the given name to the graph. 
+ *
+ * 	@param {string} name The desired name of the vertex. 
+ */
 Graph.prototype.addVertex(name) {
-	newVertex = new Vertex(name); 
-	this.vertices.push(newVertex); 
+	/* 
+		NOTE: Add error checking for vertices with that name already? 
+	*/
+	this.vertices.push(new Vertex(name))
 }
 
 /*
-	Remove a vertex with the given name in the graph 
-*/
+ *	Remove a vertex with the given name from the graph. If no vertex exists 
+ * 	with the given name, the graph will remain unchanged.  
+ *
+ * 	@param {string} name The name of the vertex to be removed. 
+ */
 Graph.prototype.removeVertex(name) {
-
+	vertex = this.getVertex(name)
 }
 
 /*
-	Add a edge between vertices v1 and v2 with the given weight.
-*/
-Graph.prototype.addEdge(v1, v2, weight) {
-	if (this.isDirected == true) {
-		v1.edges.push(new Edge(v2))
+ *	Return the vertex with the given name. If no vertex exists with the given name
+ *	return null. 
+ *
+ * 	@param {string} name The desired name of the vertex. 
+ */
+Graph.prototype.getVertex(name) {
+	vertex = null; 
+	for (i = 0; i < this.vertices.length; i++) {
+		if (this.vertices[i].name === name) {
+			vertex = vertices[i]; 
+		}
 	}
-	newEdge = []; 
-	v1.edges.push(newEdge); 
-	v2.edges.push([v1, weight])
+
+	return vertex 
+}
+
+/*
+ *	Add an edge between the given vertices with the given weight. 
+ *
+ * 	@param {Vertex} v1 
+ * 	@param {Vertex} v2
+ *	@param {number} weight
+ */
+Graph.prototype.addEdge(v1, v2, weight) {
 
 }
 
 /*
-	Remove the given edge from the graph 
-*/
-
-/*
-	Returns the index of the given vertex in the Graph's vertex list. 
-*/
-Graph.prototype.findVertexIndex(v) {
+ *	Remove the given edge from the graph. If this edge does not exist in the 
+ * 	graph, the graph is left unchanged. 
+ *
+ * 	@param {Edge} e The edge to be removed
+ */
+Graph.prototype.removeEdge(e) {
 
 }
 
 /*
-	Return True iff there is a path betweeen vertex v1 and vertex v2 
-*/
+ *	Return true if there exists a path between the two given vertices in the graph, 
+ * 	otherwise return false. Note that if either of these vertices do not belong to 
+ *	this graph, false will be returned. 
+ *
+ * 	@param {Vertex} v1 
+ *	@param {Vertex} v2 
+ */
 Graph.prototype.pathExists(v1, v2) {
-	return false; 
+
 }
 
