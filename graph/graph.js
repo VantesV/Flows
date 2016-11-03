@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 /*
  *  
  */ 
@@ -41,6 +43,10 @@ class Vertex {
     }
     return false;
   }
+
+  is(v) {
+    return _.isEqual(this,v);
+  }
 };
 
 /*
@@ -63,12 +69,19 @@ class Graph {
   }
 
   /*
-   *  Add a vertex with the given name to the graph.
+   *  Add a vertex to the graph.
    *
-   *   @param {string} name The desired name of the vertex.
+   *   @param {Vertex} v The vertex to be added to the graph.
    */
-  addVertex(name) {
-    this.vertices.push(new Vertex(name));
+  addVertex(v) {
+    // this should prevent outside manipulation of the graph, so
+    // if I do `g.addVertex(v)` then v = 'broke u', the v in g will
+    // still be a vertex.
+    let temp_v = v;
+    if (!(v instanceof Vertex)) {
+      temp_v = new Vertex(v);
+    }
+    this.vertices.push(temp_v);
   }
 
   /*
@@ -78,12 +91,21 @@ class Graph {
    *   @param {Vertex} v The vertex to be removed
    */
   removeVertex(v) {
-    for (var i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i] === v) {
+    let temp_v = v;
+    if (!(v instanceof Vertex)) {
+      temp_v = new Vertex(v);
+    }
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].is(temp_v)) {
         this.vertices.splice(i, 1);
-        return;
+
+        // vertex removed
+        return true;
       }
     }
+
+    // vertex not found
+    return false;
   }
 
   /*
