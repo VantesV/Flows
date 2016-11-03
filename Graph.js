@@ -1,5 +1,5 @@
 /*
- *
+ *  
  */ 
 class Vertex {
   constructor(name) {
@@ -9,7 +9,7 @@ class Vertex {
 
   /*
    *  Add an edge connecting this vertex to the given vertex v to the adjacency list. 
-   *  If this edge already exists, the adjacency list is left unchanged. 
+   *  If this edge already exists, the adjacency list is left unchanged.
    */
   addEdge(v) {
     if (!this.connectedTo(v)) {
@@ -64,12 +64,12 @@ class Graph {
 
 
  /*
-  *  Add a vertex with the given name to the graph.
+  *  Add the given vertex to the graph. 
   *
-  *   @param {string} name The desired name of the vertex.
+  *   @param {Vertex} v The desired name of the vertex.
   */
-  addVertex(name) {
-    this.vertices.push(new Vertex(name));
+  addVertex(v) {
+    this.vertices.push(v;
   }
 
  /*
@@ -150,7 +150,7 @@ class Graph {
   *  @param {Vertex} v2
   */
   pathExists(v1, v2) {
-
+    
   } 
 
   /*
@@ -175,6 +175,10 @@ class Graph {
   isTree() {
     return !this.isCyclic() && isConnected(); 
   }
+
+  /*
+   *
+   */
 
 }
 
