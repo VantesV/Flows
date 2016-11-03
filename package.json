@@ -1,0 +1,18 @@
+{
+  "name": "Flows",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava graph/test-*.js",
+    "watch:test": "ava test-*.js --watch"
+  },
+  "repository": {
+    "url": "https://github.com/Vijay-Siva/Flows.git",
+    "type": "git"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.16.0"
+  }
+}
