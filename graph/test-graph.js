@@ -68,6 +68,14 @@ test('Vertices can be added by Vertex', t => {
   t.deepEqual(u, g.vertices[0]);
 });
 
+test('Added vertices cannot be changed outside', t => {
+  let g = new Graph();
+  let u = new Vertex(1);
+  g.addVertex(u);
+  u = 'hello';
+  t.true(g.vertices[0] instanceof Vertex);
+});
+
 test('Vertices are removed from graphs by value', t => {
   let g = new Graph();
   let u = new Vertex(1);
