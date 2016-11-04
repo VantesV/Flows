@@ -216,6 +216,7 @@ class Graph {
    *
    *  @param {Vertex} v1
    *  @param {Vertex} v2
+   *  @return {bool}
    */
   pathExists(v1, v2) {
 
@@ -231,16 +232,19 @@ class Graph {
   }
 
   /*
-   *   Return true iff this graph is connected.
+   *  Return true iff there exists a path between every pair of vertices in the graph. 
+   *  Otherwise return false.  
    *
-   *   @return {bool}
+   *  @return {bool}
    */
   isConnected() {
 
   }
 
   /*
-   *  Return true iff this graph is a tree, otherwise return false.
+   *  Return true iff this graph is connected and asyclic, otherwise return false.
+   *
+   *  @return {bool}
    */
   isTree() {
     return !this.isCyclic() && isConnected();
@@ -248,7 +252,7 @@ class Graph {
 
   /*
    *  Return a minimum spanning tree for the given graph if one exists. If the given graph
-   *  is not connected 
+   *  is not connected an empty list is returned. 
    *
    *  @return {List of Vertices}
    */
