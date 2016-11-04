@@ -31,7 +31,7 @@ class Vertex {
    */
   removeEdge(v) {
     for (var i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].neighbor.is(v)) {
+      if (this.edges[i].tail.is(v)) {
         this.edges.splice(i, 1);
         return true; 
       }
@@ -44,7 +44,7 @@ class Vertex {
    */
   neighborTo(v) {
     for (var i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].neighbor.is(v)) {
+      if (this.edges[i].tail.is(v)) {
         return true;
       }
     }
@@ -69,9 +69,9 @@ class Vertex {
  *
  */
 class Edge {
-  constructor(neighbor) {
+  constructor(tail) {
     this.weight = arguments[1] || 0;
-    this.neighbor = neighbor;
+    this.tail = tail;
   }
 }
 
