@@ -277,7 +277,7 @@ class Graph {
 /*
  * 
  */
-class FlowNetwork() {
+class FlowNetwork {
   constructor(source, terminal, graph) {
     this.source = source; 
     this.terminal = terminal; 
