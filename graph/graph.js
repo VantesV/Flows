@@ -274,6 +274,17 @@ class Graph {
 
 }
 
+/*
+ * 
+ */
+class FlowNetwork() {
+  constructor(source, terminal, graph) {
+    this.source = source; 
+    this.terminal = terminal; 
+    this.graph = graph; 
+  }
+}
+
 exports.Vertex = Vertex;
 exports.Edge = Edge;
 exports.Graph = Graph;
