@@ -9,7 +9,7 @@ const Graph = graph.Graph;
 
 test('Makes Vertices', t => {
   let v = new Vertex(1);
-  t.true(v.name === 1 && !v.edge);
+  t.true(v.value === 1 && !v.edge);
 });
 
 test('Makes Edges', t => {

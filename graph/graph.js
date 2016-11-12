@@ -5,7 +5,7 @@ const _ = require('lodash');
  */ 
 class Vertex {
   constructor(value) {
-    this.name = value;
+    this.value = value;
     this.edges = [];
   }
 
@@ -19,7 +19,9 @@ class Vertex {
   addEdge(v) {
     if (!this.neighborTo(v)) {
       this.edges.push(new Edge(v));
+      return true; 
     }
+    return false; 
   }
 
   /*
@@ -128,7 +130,7 @@ class Graph {
    *  Remove the given vertex from the graph. If the given vertex is not
    *  a member of this graph, the graph is left unchanged.
    *
-   *   @param {Vertex} v The vertex to be removed
+   *  @param {Vertex} v The vertex to be removed
    */
   removeVertex(v) {
     let temp_v = v;
@@ -281,7 +283,15 @@ class FlowNetwork {
   constructor(source, terminal, graph) {
     this.source = source; 
     this.terminal = terminal; 
-    this.graph = graph; 
+    this.graph = graph || new Graph(true); 
+  }
+
+  /*
+   * Returns a set of edges with their flows, representing the maximum flow in this flow network. 
+   * @return {List of Edges} 
+   */
+  maximumFlow() {
+
   }
 }
 
