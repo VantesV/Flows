@@ -6,13 +6,13 @@
 
 * [API Reference] (#api-reference)
   * [Graph] (#graph)
-    * [Instance Variables] (#instance-variables)
-    * [Methods] (#methods)
+    * [Instance Variables] (#graph:-instance-variables)
+    * [Methods] (#graph:-methods)
     * [Directed Graphs] (#directed-graphs)
     * [Undirected Graphs] (#undirected-graphs)
   * [Vertex] (#vertex) 
-    * [Instance Variables] (#instance-variables) 
-    * [Methods] (#methods)
+    * [Instance Variables] (#vertex:-instance-variables) 
+    * [Methods] (#vertex:-methods)
   
 
 ## API Reference 
@@ -24,7 +24,7 @@ called edges. Vertices can be seen as a set of objects, and edges can be seen as
 
 Graphs can be used to model a variety of problems, for example a graph can model a map with the vertices representing cities and edges can represent roads between two cities. If this graph is directed, a directed edge can represent a one way road. 
 
-#### Instance Variables 
+#### Graph: Instance Variables 
 
 ```javascript
 vertices 
@@ -36,7 +36,7 @@ isDirected
 ```
 A boolean denoting whether this graph is directed or undirected. 
 
-#### Methods
+#### Graph: Methods
 
 
 ```javascript
@@ -184,7 +184,7 @@ the graph class. However, the graph class allows you to manage and create vertic
 having direct access to the Vertex class if you choose. Both options are available for 
 the convenience of the user. 
 
-#### Instance Variables 
+#### Vertex: Instance Variables 
 
 ```javascript
 value
@@ -194,7 +194,7 @@ You may use this value as a simple ID, or as storage for the object. If no objec
 provided, this.value is set to null be default. 
 
 
-#### Methods
+#### Vertex: Methods
 
 
 ```javascript
