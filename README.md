@@ -6,13 +6,13 @@
 
 * [API Reference] (#api-reference)
   * [Graph] (#graph)
-    * [Instance Variables] (#graph:-instance-variables)
-    * [Methods] (#graph:-methods)
+    * [Instance Variables] (#graph-instance-variables)
+    * [Methods] (#graph-methods)
     * [Directed Graphs] (#directed-graphs)
     * [Undirected Graphs] (#undirected-graphs)
   * [Vertex] (#vertex) 
-    * [Instance Variables] (#vertex:-instance-variables) 
-    * [Methods] (#vertex:-methods)
+    * [Instance Variables] (#vertex-instance-variables) 
+    * [Methods] (#vertex-methods)
   
 
 ## API Reference 
