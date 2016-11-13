@@ -15,7 +15,10 @@
 
 ### Graph 
 
-This is the class for the graph data structure. 
+This is the class for the graph data structure. A graph structure contains a set of vertices, and a set of pairs of vertices
+called edges. Vertices can be seen as a set of objects, and edges can be seen as pairwise relations between two objects. A graph can also be directed or undirected, which is a further abstraction that allows us to model non commutative pairwise relations between vertices. 
+
+Graphs can be used to model a variety of problems, for example a graph can model a map with the vertices representing cities and edges can represent roads between two cities. If this graph is directed, a directed edge can represent a one way road. 
 
 #### Instance Variables 
 
@@ -169,3 +172,62 @@ an undirected graph.
 Graph(false)
 Graph()
 ```
+
+### Vertex 
+
+This class is for the vertex object. This class is meant to be used in conjunction with
+the graph class. However, the graph class allows you to manage and create vertices without
+having direct access to the Vertex class if you choose. Both options are available for 
+the convenience of the user. 
+
+#### Instance Variables 
+
+```javascript
+value
+```  
+The instance variable value is an optional Object that is associated with this vertex. 
+You may use this value as a simple ID, or as storage for the object. If no object is 
+provided, this.value is set to null be default. 
+
+
+#### Methods
+
+
+```javascript
+addEdge(v)
+```  
+Adds the given vertex v to this instance's adjacency list. If v is already in this 
+instance's adjacency list, the adjacency list is left unchanged. Returns true if 
+the vertex was added, false if the vertex was already in the adjacency list.  
+_Parameters_: Vertex v
+_Return_: bool
+
+```javascript
+removeEdge(v)
+```  
+Removes the given vertex from this instance's adjacency list. If this vertex is not 
+in the adjacency list, no changes are made. Returns true if the vertex was removed, 
+false if the edge was not in the adjacency list.  
+_Parameters_: Vertex v
+_Return_: bool
+
+```javascript
+neighborTo(v)
+```  
+Returns true if the given vertex is in this instance's adjacency list, otherwise returns
+false.  
+_Parameters_: Vertex v
+_Return_: bool
+
+```javascript
+changeValue(newValue)
+```  
+Replaces the value of this vertex with the given Object newValue.  
+_Parameters_: Object newValue
+
+```javascript
+is(v)
+```  
+Return true if this vertex is equivalent to the given vertex v.  
+_Parameters_: Vertex v
+_Return_: bool 
