@@ -10,6 +10,10 @@
     * [Methods] (#methods)
     * [Directed Graphs] (#directed-graphs)
     * [Undirected Graphs] (#undirected-graphs)
+  * [Vertex] (#vertex) 
+    * [Instance Variables] (#instance-variables) 
+    * [Methods] (#methods)
+  
 
 ## API Reference 
 
