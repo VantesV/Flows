@@ -2,6 +2,15 @@
 
 > A Javascript API that allows you to build and manage flow networks and graph data structures. 
 
+## Table of Contents
+
+* [API Reference] (#api-reference)
+  * [Graph] (#graph)
+    * [Instance Variables] (#instance-variables)
+    * [Methods] (#methods)
+    * [Directed Graphs] (#directed-graphs)
+    * [Undirected Graphs] (#undirected-graphs)
+
 ## API Reference 
 
 ### Graph 
@@ -143,7 +152,7 @@ v1 and v2, an empty array is returned.
 @return {Array of Vertices} path  
 
 
-#### Directed Graph
+#### Directed Graphs
 
 To create a directed graph, pass in true into the constructor. 
 
@@ -151,7 +160,7 @@ To create a directed graph, pass in true into the constructor.
 Graph(true); 
 ```
 
-#### Undirected Graph
+#### Undirected Graphs
 
 The graph class initializes the graph as an undirected graph by default if no argument is 
 passed into the constructor. Both of the methods shown below are valid ways of initializing 
