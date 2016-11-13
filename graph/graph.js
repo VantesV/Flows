@@ -5,36 +5,35 @@ const _ = require('lodash');
  */ 
 class Vertex {
   constructor(value) {
-    this.value = value;
-    this.edges = [];
+    this.value = value || null;
+    this._adjacency_list = [];
   }
 
   /*
-   *  Add an edge connecting this vertex to the given vertex v to the adjacency list. 
-   *  If this edge already exists, the adjacency list is left unchanged. Return true 
-   *  if the edge was added, 0 if the edge already existed in the graph. 
+   *  Add the given vertex to this instance's adjacency list. Return true if Vertex v was 
+   *  added to the adjacency list, false if the vertex already belogned to the list. 
    *
    *  @return {bool}
    */
   addEdge(v) {
     if (!this.neighborTo(v)) {
-      this.edges.push(new Edge(v));
+      this._adjacency_list.push(new Edge(v));
       return true; 
     }
     return false; 
   }
 
   /*
-   *  Remove the edge connected to the given vertex from this vertex's adjacency list.
-   *  If there isn't an edge connecting this vertex and v, the adjacency list is left
-   *  unchanged. Returns true if removed, 0 if the edge did not exist in the graph. . 
+   *  Remove the given vertex from this instance's adjacency list. Return true if Vertex v
+   *  was removed from the adjacency list, false if it did not belong to this instance's 
+   *  adjacency list.  
    *
    *  @return {bool}
    */
   removeEdge(v) {
-    for (var i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].tail.is(v)) {
-        this.edges.splice(i, 1);
+    for (var i = 0; i < this._adjacency_list.length; i++) {
+      if (this._adjacency_list[i].tail.is(v)) {
+        this._adjacency_list.splice(i, 1);
         return true; 
       }
     }
@@ -45,8 +44,8 @@ class Vertex {
    *  Return true iff this vertex has an edge connected to the given vertex v.
    */
   neighborTo(v) {
-    for (var i = 0; i < this.edges.length; i++) {
-      if (this.edges[i].tail.is(v)) {
+    for (var i = 0; i < this._adjacency_list.length; i++) {
+      if (this._adjacency_list[i].tail.is(v)) {
         return true;
       }
     }
@@ -86,7 +85,7 @@ class Graph {
     this.isDirected = directed || false;
     this._isConnected = null; 
     this._isCyclic = null; 
-    this.size = 0;
+    this._size = 0;
   }
 
   _update() {
@@ -108,14 +107,14 @@ class Graph {
    *  @return {int}
    */
   size(){
-    return this.size; 
+    return this._size; 
   }
 
   /*
    *  Add a vertex to the graph. If a vertex is not given, a new vertex 
    *  is created with the argument given.  
    *
-   *   @param {Vertex} v The vertex to be added to the graph.
+   *   @param {Vertex} || {Object} v The vertex to be added to the graph, or value of the vertex to be created. 
    */
   addVertex(v) {
     let temp_v = v;
@@ -128,9 +127,11 @@ class Graph {
 
   /*
    *  Remove the given vertex from the graph. If the given vertex is not
-   *  a member of this graph, the graph is left unchanged.
+   *  a member of this graph, the graph is left unchanged. Return true if the 
+   *  given vertex was removed from the graph, false if it did not belong to the graph. 
    *
    *  @param {Vertex} v The vertex to be removed
+   *  @return {bool}
    */
   removeVertex(v) {
     let temp_v = v;
@@ -152,10 +153,10 @@ class Graph {
   }
 
   /*
-   *  Return the vertex in this graph with the given name. If no vertex exists
-   *  in this graph with the given name, return null.
+   *  Return the vertex in this graph with the given value. If no vertex exists
+   *  in this graph with the given value, return null.
    */
-  getVertex(name) {
+  getVertex(value) {
     for (var i = 0; i < this.vertices.length; i++) {
       if (_.isEqual(this.vertices[i].value, value)) {
         return this.vertices[i];
@@ -169,9 +170,9 @@ class Graph {
    *
    *   @param {Vertex} v1
    *   @param {Vertex} v2
-   *   @param {number} weight
+   *   @param {number} [weight]
    */
-  addEdge(v1, v2) {
+  addEdge(v1, v2, weight) {
     this.size = this.size + v1.addEdge(v2);
     this._update(); 
     
@@ -187,6 +188,8 @@ class Graph {
    *  Return true iff there exists an edge (v1, v2) in this graph. Otherwise 
    *  return false.
    *
+   *  @param {Vertex} v1
+   *  @param {Vertex} v2
    *  @return {bool}
    */
   hasEdge(v1, v2) {
@@ -201,12 +204,14 @@ class Graph {
    *  @param {Vertex} v2
    */
   removeEdge(v1, v2) {
-    this.size = this.size - v1.removeEdge(v2); 
+    isRemoved = v1.removeEdge(v2); 
+    this.size = this.size - isRemoved; 
     this._update(); 
 
     // If graph is undirected, remove the other direction
     if(!this.isDirected) {
-      this.size = this.size - v2.removeEdge(v2); 
+      isRemoved = v2.removeEdge(v1); 
+      this.size = this.size - isRemoved; 
       this._update(); 
     }
   } 
@@ -221,7 +226,7 @@ class Graph {
    *  @return {bool}
    */
   pathExists(v1, v2) {
-
+    return null; 
   }
 
   /*
@@ -230,7 +235,7 @@ class Graph {
    *  @return {bool}
    */
   isCyclic() {
-
+    return this._isCyclic; 
   }
 
   /*
@@ -240,7 +245,7 @@ class Graph {
    *  @return {bool}
    */
   isConnected() {
-
+    return this.isConnected; 
   }
 
   /*
@@ -254,9 +259,9 @@ class Graph {
 
   /*
    *  Return a minimum spanning tree for the given graph if one exists. If the given graph
-   *  is not connected an empty list is returned. 
+   *  is not connected null is returned. 
    *
-   *  @return {List of Vertices}
+   *  @return {Graph}
    */
   minimumSpanningTree() {
 
@@ -268,7 +273,7 @@ class Graph {
    *
    * @param {Vertex} v1
    * @param {Vertex} v2
-   * @return {List of Vertices} path 
+   * @return {Array of Vertices} path 
    */
   shortestPathBetween(v1, v2) {
 
