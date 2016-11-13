@@ -9,7 +9,7 @@ const Graph = graph.Graph;
 
 test('Makes Vertices', t => {
   let v = new Vertex(1);
-  t.true(v.value === 1 && !v.edge);
+  t.true(v.value === 1);
 });
 
 test('Makes Edges', t => {
@@ -17,7 +17,7 @@ test('Makes Edges', t => {
   let u = new Vertex(2);
   let edge_u = new Edge(u);
   v.addEdge(u);
-  t.deepEqual(v.edges[0], edge_u);
+  t.deepEqual(v._adjacency_list[0], edge_u);
 });
 
 test('Edges have weight', t => {
@@ -25,7 +25,7 @@ test('Edges have weight', t => {
   let u = new Vertex(2);
   v.addEdge(u);
 
-  t.true(v.edges[0].weight === 0);
+  t.true(v._adjacency_list[0].weight === 0);
 });
 
 test('Edges can be removed', t => {
@@ -34,7 +34,7 @@ test('Edges can be removed', t => {
   v.addEdge(u);
   v.removeEdge(u);
 
-  t.true(v.edges.length === 0);
+  t.true(v._adjacency_list.length === 0);
 });
 
 test('Edges are neighbors', t => {
