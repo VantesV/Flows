@@ -5,6 +5,7 @@
 ## Table of Contents
 
 * [API Reference] (#api-reference)
+  * [Coming Soon] (#coming-soon)
   * [Graph] (#graph)
     * [Instance Variables] (#instance-variables)
     * [Methods] (#methods)
