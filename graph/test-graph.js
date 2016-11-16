@@ -24,8 +24,10 @@ test('Edges have weight', t => {
   let v = new Vertex(1);
   let u = new Vertex(2);
   v.addEdge(u);
+  let w = new Vertex(3); 
+  v.addEdge(w, 5); 
 
-  t.true(v._adjacency_list[0].weight === 0);
+  t.true(v._adjacency_list[0].weight === 1 && v._adjacency_list[1].weight == 5);
 });
 
 test('Edges can be removed', t => {
@@ -104,6 +106,17 @@ test('Vertices are removed from graphs by Vertex', t => {
   t.true(g.vertices.length === 0);
 });
 
+test('Edges added with weight', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  g.addVertex(u);
+  let v = new Vertex(2);
+  g.addVertex(v); 
+  g.addEdge(u, v, 3); 
+  t.true(u._adjacency_list[0].weight == 3 && u._adjacency_list[0].tail.is(v)); 
+
+})
+
 test('Shortest Path between vertices with no path is 0', t => {
   let g = new Graph();
   let u = new Vertex(1);
@@ -121,7 +134,22 @@ test('Shortest Path between vertices in simple graph', t => {
   g.addEdge(v, w);  
   let list = g.shortestPathBetween(u,w); 
   let expected = [v, w]; 
-  t.true(list.length == 2 && _.isEqual(list, expected)); 
+  t.true(list.length == 2 && _.isEqual(list, expected) && w._distance == 2); 
+});
+
+test('Shortest Path non trivial graph', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2); 
+  let w = new Vertex(3); 
+  let z = new Vertex(4); 
+  g.addEdge(u, v, 1);
+  g.addEdge(u, w, 2); 
+  g.addEdge(v, z, 5);
+  g.addEdge(w, z, 1); 
+  let expected = [w, z]; 
+  let actual = g.shortestPathBetween(u, z); 
+  t.true(_.isEqual(expected, actual) && z._distance == 3);   
 });
 
 test.todo('has edge');

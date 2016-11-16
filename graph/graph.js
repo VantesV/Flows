@@ -9,7 +9,7 @@ class Vertex {
     this.value = value || null;
     this.degree = 0; 
     this._adjacency_list = [];
-    this._distance = 0; 
+    this._distance = Number.MAX_SAFE_INTEGER; 
     this._visited = false; 
     this._parent = null; 
   }
@@ -20,9 +20,13 @@ class Vertex {
    *
    *  @return {bool}
    */
-  addEdge(v) {
+  addEdge(v, weight) {
+    if (!weight) {
+      weight = 1; 
+    }
+
     if (!this.neighborTo(v)) {
-      this._adjacency_list.push(new Edge(v));
+      this._adjacency_list.push(new Edge(v, weight));
       this.degree += 1; 
       return true; 
     }
@@ -77,8 +81,8 @@ class Vertex {
  *
  */
 class Edge {
-  constructor(tail) {
-    this.weight = arguments[1] || 0;
+  constructor(tail, weight) {
+    this.weight = weight || 1;
     this.tail = tail;
   }
 }
@@ -183,13 +187,16 @@ class Graph {
    *   @param {number} [weight]
    */
   addEdge(v1, v2, weight) {
-    this.size = this.size + v1.addEdge(v2);
+    if (!weight) {
+      weight = 1; 
+    }
+    this.size = this.size + v1.addEdge(v2, weight);
     this._update(); 
     
 
     // If undirected graph, add the other direction as well
     if (!this.isDirected) {
-      this.size = this.size + v2.addEdge(v1);
+      this.size = this.size + v2.addEdge(v1, weight);
       this._update(); 
     }
   }
@@ -306,13 +313,19 @@ class Graph {
 
       // Add all neigbours to the Queue, assuming they haven't been visited 
       for (let i = 0; i < currentVertex.degree; i++) {
-        distance += 1; 
-        let discoveredVertex = currentVertex._adjacency_list[i].tail; 
+        let curEdge = currentVertex._adjacency_list[i]; 
+        let discoveredVertex = curEdge.tail; 
+        let distance = Math.min(currentVertex._distance + curEdge.weight, discoveredVertex._distance); 
+        
+        // Update distance if we found a shorter path
+        if (distance < discoveredVertex._distance) {
+          discoveredVertex._distance = distance; 
+          discoveredVertex._parent = currentVertex; 
+        }
 
         // If vertex has no already been visited, add it to the queue 
         if (discoveredVertex._visited == false) {
           discoveredVertex._visited = true; 
-          discoveredVertex._distance = distance;
           discoveredVertex._parent = currentVertex;  
           q.queue(discoveredVertex); 
         }
