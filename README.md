@@ -4,7 +4,6 @@
 
 ## Table of Contents
 
-* [Coming Soon] (#coming-soon)
 * [API Reference] (#api-reference)
   * [Graph] (#graph)
     * [Instance Variables] (#instance-variables)
@@ -14,13 +13,8 @@
   * [Vertex] (#vertex) 
     * [Instance Variables] (#instance-variables-1) 
     * [Methods] (#methods-1)
+* [Coming Soon] (#coming-soon)
   
-## Coming Soon
-
-- Flow Network data structure with the ability to calculate maximum flows
-- Topological Sort 
-- Depth First Search 
-- Shortest Path with negative edge weights 
 
 ## API Reference 
 
@@ -216,3 +210,10 @@ is(v)
 Return true if this vertex is equivalent to the given vertex v.  
 _Parameters_: Vertex v  
 _Return_: bool  
+
+## Coming Soon
+
+- Flow Network data structure with the ability to calculate maximum flows
+- Topological Sort 
+- Depth First Search 
+- Shortest Path with negative edge weights 
