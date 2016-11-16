@@ -44,13 +44,15 @@ A boolean denoting whether this graph is directed or undirected.
 order()
 ```
 Returns the number of vertices in the graph.  
+
 _Return_: int  
 
 
 ```javascript
 size()
 ```
-Returns the number of edges in the graph.  
+Returns the number of edges in the graph. 
+
 _Return_: int  
 
 
@@ -59,6 +61,7 @@ addVertex(v)
 ```
 Adds a vertex to the graph. If a non Vertex argument is provided, a new vertex 
 is created with value v and is added to the graph.   
+
 _Parameters_: Vertex || Object v  
 
 
@@ -68,6 +71,7 @@ removeVertex(v)
 Remove the given vertex from the graph. If the given vertex is not a 
 member of this graph, the graph is left unchanged. Returns true on successful removal,
 false if the vertex did not belong to the graph.  
+
 _Parameters_: Vertex v    
 _Return_: bool  
 
@@ -77,6 +81,7 @@ getVertex(value)
 ```
 Return the vertex in this graph with the given value. If no vertex exists 
 in this graph with the given value, returns null.  
+
 _Parameters_: Object value  
 
 
@@ -86,7 +91,8 @@ addEdge(v1, v2, weight)
 Add an edge between the given vertices with the given weight. If no weight is provided, the 
 edge is initialized with weight 1. Note that if the edge (v1, v2) already exists in the 
 graph, the graph is left unchanged. Return true if edge added, false if the edge already 
-exists in the graph. 
+exists in the graph.  
+
 _Parameters_: Vertex v1, Vertex v2, (Optional) Number weight  
 _Return_: bool
 
@@ -115,6 +121,7 @@ pathExists(v1, v2)
 ```
 Returns true if there exists a path between the given vertices, otherwise returns
 false. Note that if either v1 or v2 do not belong to the graph, false will be returned.  
+
 _Parameters_: Vertex v1, Vertex v2  
 _Return_: bool  
 
@@ -123,6 +130,7 @@ _Return_: bool
 isCyclic()
 ```
 Returns true if there exists a cycle in the graph, otherwise return false.  
+
 _Return_: bool  
 
 
@@ -131,6 +139,7 @@ isConnected()
 ```
 Returns true iff there exists a path between every pair of vertices in the graph. Otherwise
 return false.  
+
 _Return_: bool  
 
 
@@ -139,6 +148,7 @@ isTree()
 ```
 Returns true if this graph is a tree, otherwise return false. Recall that a graph is a tree 
 if it is connected and asyclic.  
+
 _Return_: bool  
 
 
@@ -147,6 +157,7 @@ minimumSpanningTree()
 ```
 Returns a minimum spanning tree for the given graph if one exists. If the given graph is not
 connected, null is returned. 
+
 _Return_: bool    
 
 
@@ -156,6 +167,7 @@ shortestPathBetween(v1, v2)
 Returns the shortest path between vertex v1 and v2 if it exists. If no path exists between 
 v1 and v2, an empty array is returned. Note that the current version only supports positive 
 edge weighted graphs.  
+
 _Parameters_: Vertex v1, Vertex v2
 _Return_: Array of Vertex objects  
 
@@ -201,13 +213,22 @@ provided, this.value is set to null be default.
 ```javascript
 changeValue(newValue)
 ```  
-Replaces the value of this vertex with the given Object newValue.  
-_Parameters_: Object newValue  
+Replaces the value of this vertex with the given Object newValue. 
+
+_Parameters_: Object newValue 
+
+```javascript
+degree()
+```
+Returns the number of outgoing edges this vertex has. 
+
+_Return_: Number degree
 
 ```javascript
 is(v)
 ```  
 Return true if this vertex is equivalent to the given vertex v.  
+
 _Parameters_: Vertex v  
 _Return_: bool  
 
