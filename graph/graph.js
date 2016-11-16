@@ -72,6 +72,15 @@ class Vertex {
     this.value = newValue; 
   }
 
+  /*
+   * Return the number of outgoing edges this vertex has. 
+   *
+   * @return Number degree
+   */
+  degree() {
+    return this.degree; 
+  }
+
   is(v) {
     return _.isEqual(this,v);
   }
