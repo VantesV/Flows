@@ -1,5 +1,5 @@
 const test = require('ava').test;
-
+const _ = require('lodash');
 const graph = require('./graph');
 
 const Vertex = graph.Vertex;
@@ -34,7 +34,19 @@ test('Edges can be removed', t => {
   v.addEdge(u);
   v.removeEdge(u);
 
-  t.true(v._adjacency_list.length === 0);
+  t.true(v._adjacency_list.length === 0 && v.degree == 0);
+});
+
+test('Edges can be added with correct degree', t => {
+  let g = new Graph(); 
+  let v = new Vertex(1); 
+  let u = new Vertex(2); 
+  g.addVertex(v); 
+  g.addVertex(u); 
+  let before = v.degree; 
+  g.addEdge(v, u); 
+  let after = v.degree; 
+  t.true(v._adjacency_list.length == 1 && before == 0 && after == 1 && v._adjacency_list[0].tail.is(u)); 
 });
 
 test('Edges are neighbors', t => {
@@ -90,6 +102,26 @@ test('Vertices are removed from graphs by Vertex', t => {
   g.addVertex(u);
   g.removeVertex(u);
   t.true(g.vertices.length === 0);
+});
+
+test('Shortest Path between vertices with no path is 0', t => {
+  let g = new Graph();
+  let u = new Vertex(1);
+  let v = new Vertex(2);
+  let list = g.shortestPathBetween(u, v);
+  t.true(list.length === 0);
+});
+
+test('Shortest Path between vertices in simple graph', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2); 
+  let w = new Vertex(3); 
+  g.addEdge(u, v);
+  g.addEdge(v, w);  
+  let list = g.shortestPathBetween(u,w); 
+  let expected = [v, w]; 
+  t.true(list.length == 2 && _.isEqual(list, expected)); 
 });
 
 test.todo('has edge');

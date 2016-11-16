@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const PriorityQueue = require('js-priority-queue');
 
 /*
  *  
@@ -6,7 +7,11 @@ const _ = require('lodash');
 class Vertex {
   constructor(value) {
     this.value = value || null;
+    this.degree = 0; 
     this._adjacency_list = [];
+    this._distance = 0; 
+    this._visited = false; 
+    this._parent = null; 
   }
 
   /*
@@ -18,6 +23,7 @@ class Vertex {
   addEdge(v) {
     if (!this.neighborTo(v)) {
       this._adjacency_list.push(new Edge(v));
+      this.degree += 1; 
       return true; 
     }
     return false; 
@@ -34,6 +40,7 @@ class Vertex {
     for (var i = 0; i < this._adjacency_list.length; i++) {
       if (this._adjacency_list[i].tail.is(v)) {
         this._adjacency_list.splice(i, 1);
+        this.degree -= 1; 
         return true; 
       }
     }
@@ -155,6 +162,9 @@ class Graph {
   /*
    *  Return the vertex in this graph with the given value. If no vertex exists
    *  in this graph with the given value, return null.
+   *  
+   *  @param {Object} value
+   *  @return {Vertex} 
    */
   getVertex(value) {
     for (var i = 0; i < this.vertices.length; i++) {
@@ -276,6 +286,48 @@ class Graph {
    * @return {Array of Vertices} path 
    */
   shortestPathBetween(v1, v2) {
+    const compareNumbers = (a, b) => a._distance - b._distance;
+
+    let q = new PriorityQueue({comparator: compareNumbers}); 
+    let distance = 0; 
+    v1._distance = 0; 
+    let currentVertex = v1;  
+    currentVertex._visited = true; 
+
+    // Set all parents to null before hand
+    for (let i = 0; i < this.vertices.length; i++) {
+      this.vertices[i].parent = null;
+      this.vertices[i].parent = Number.MAX_SAFE_INTEGER; 
+    }
+
+    q.queue(currentVertex);
+    while (q.length != 0) {
+      let currentVertex = q.dequeue();
+
+      // Add all neigbours to the Queue, assuming they haven't been visited 
+      for (let i = 0; i < currentVertex.degree; i++) {
+        distance += 1; 
+        let discoveredVertex = currentVertex._adjacency_list[i].tail; 
+
+        // If vertex has no already been visited, add it to the queue 
+        if (discoveredVertex._visited == false) {
+          discoveredVertex._visited = true; 
+          discoveredVertex._distance = distance;
+          discoveredVertex._parent = currentVertex;  
+          q.queue(discoveredVertex); 
+        }
+      } 
+    }
+
+    // Backtrack to get the path
+    let path = [] 
+    let node = v2; 
+    while (node._parent != null) {
+      path.unshift(node);
+      node = node._parent;  
+    }
+
+    return path; 
 
   }
 
@@ -299,6 +351,7 @@ class FlowNetwork {
 
   }
 }
+
 
 exports.Vertex = Vertex;
 exports.Edge = Edge;
