@@ -6,13 +6,13 @@
 
 * [API Reference] (#api-reference)
   * [Graph] (#graph)
-    * [Instance Variables] (#graph-instance-variables)
-    * [Methods] (#graph-methods)
+    * [Instance Variables] (#instance-variables)
+    * [Methods] (#methods)
     * [Directed Graphs] (#directed-graphs)
     * [Undirected Graphs] (#undirected-graphs)
   * [Vertex] (#vertex) 
-    * [Instance Variables] (#vertex-instance-variables) 
-    * [Methods] (#vertex-methods)
+    * [Instance Variables] (#instance-variables-1) 
+    * [Methods] (#methods-1)
   
 
 ## API Reference 
@@ -24,7 +24,7 @@ called edges. Vertices can be seen as a set of objects, and edges can be seen as
 
 Graphs can be used to model a variety of problems, for example a graph can model a map with the vertices representing cities and edges can represent roads between two cities. If this graph is directed, a directed edge can represent a one way road. 
 
-#### Graph: Instance Variables 
+#### Instance Variables 
 
 ```javascript
 vertices 
@@ -36,7 +36,7 @@ isDirected
 ```
 A boolean denoting whether this graph is directed or undirected. 
 
-#### Graph: Methods
+#### Methods
 
 
 ```javascript
@@ -92,7 +92,7 @@ _Return_: bool
 ```javascript 
 hasEdge(v1, v2)
 ```
-Returns true if there exists an edge (v1, v2) in this graph. Otherwise returns false; 
+Returns true if there exists an edge (v1, v2) in this graph. Otherwise returns false.  
 
 _Parameters_: Vertex v1, Vertex v2  
 _Return_: bool  
@@ -184,7 +184,7 @@ the graph class. However, the graph class allows you to manage and create vertic
 having direct access to the Vertex class if you choose. Both options are available for 
 the convenience of the user. 
 
-#### Vertex: Instance Variables 
+#### Instance Variables 
 
 ```javascript
 value
@@ -194,44 +194,17 @@ You may use this value as a simple ID, or as storage for the object. If no objec
 provided, this.value is set to null be default. 
 
 
-#### Vertex: Methods
-
-
-```javascript
-addEdge(v)
-```  
-Adds the given vertex v to this instance's adjacency list. If v is already in this 
-instance's adjacency list, the adjacency list is left unchanged. Returns true if 
-the vertex was added, false if the vertex was already in the adjacency list.  
-_Parameters_: Vertex v
-_Return_: bool
-
-```javascript
-removeEdge(v)
-```  
-Removes the given vertex from this instance's adjacency list. If this vertex is not 
-in the adjacency list, no changes are made. Returns true if the vertex was removed, 
-false if the edge was not in the adjacency list.  
-_Parameters_: Vertex v
-_Return_: bool
-
-```javascript
-neighborTo(v)
-```  
-Returns true if the given vertex is in this instance's adjacency list, otherwise returns
-false.  
-_Parameters_: Vertex v
-_Return_: bool
+#### Methods
 
 ```javascript
 changeValue(newValue)
 ```  
 Replaces the value of this vertex with the given Object newValue.  
-_Parameters_: Object newValue
+_Parameters_: Object newValue  
 
 ```javascript
 is(v)
 ```  
 Return true if this vertex is equivalent to the given vertex v.  
-_Parameters_: Vertex v
-_Return_: bool 
+_Parameters_: Vertex v  
+_Return_: bool  
