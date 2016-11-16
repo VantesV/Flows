@@ -243,7 +243,7 @@ class Graph {
    *  @return {bool}
    */
   pathExists(v1, v2) {
-    return null; 
+    return (this.shortestPathBetween(v1, v2).length > 0)  
   }
 
   /*
@@ -293,6 +293,8 @@ class Graph {
    * @return {Array of Vertices} path 
    */
   shortestPathBetween(v1, v2) {
+    if (v1.is(v2)) return []; 
+
     const compareNumbers = (a, b) => a._distance - b._distance;
 
     let q = new PriorityQueue({comparator: compareNumbers}); 

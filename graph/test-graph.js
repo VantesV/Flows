@@ -152,6 +152,30 @@ test('Shortest Path non trivial graph', t => {
   t.true(_.isEqual(expected, actual) && z._distance == 3);   
 });
 
+test('pathExists for graph with no path', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2); 
+  let output = g.pathExists(u, v);
+  t.true(!g.pathExists(u, u)); 
+});
+
+test('pathExists for valid path', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2); 
+  let w = new Vertex(3); 
+  let z = new Vertex(4); 
+  let a = new Vertex(5); 
+  g.addEdge(u, v, 1);
+  g.addEdge(u, w, 2); 
+  g.addEdge(v, z, 5);
+  g.addEdge(w, z, 1); 
+  t.true(g.pathExists(u, z)); 
+  t.true(g.pathExists(u, w)); 
+  t.true(!g.pathExists(w, a)); 
+});
+
 test.todo('has edge');
 test.todo('path exists');
 test.todo('is connected');
