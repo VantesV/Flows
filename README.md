@@ -14,6 +14,12 @@
     * [Instance Variables] (#instance-variables-1) 
     * [Methods] (#methods-1)
   
+## Coming Soon
+
+- Flow Network data structure with the ability to calculate maximum flows
+- Topological Sort 
+- Depth First Search 
+- Shortest Path with negative edge weights 
 
 ## API Reference 
 
@@ -153,7 +159,8 @@ _Return_: bool
 shortestPathBetween(v1, v2) 
 ```
 Returns the shortest path between vertex v1 and v2 if it exists. If no path exists between 
-v1 and v2, an empty array is returned.  
+v1 and v2, an empty array is returned. Note that the current version only supports positive 
+edge weighted graphs.  
 _Parameters_: Vertex v1, Vertex v2
 _Return_: Array of Vertex objects  
 
