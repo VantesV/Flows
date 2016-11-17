@@ -158,7 +158,7 @@ minimumSpanningTree()
 Returns a minimum spanning tree for the given graph if one exists. If the given graph is not
 connected, null is returned. 
 
-_Return_: bool    
+_Return_: Graph     
 
 
 ```javascript
