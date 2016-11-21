@@ -290,7 +290,7 @@ class Graph {
    *  @return {Graph}
    */
   minimumSpanningTree() {
-
+    if (!this.isConnected() || this.order() == 0) return null;
   }
 
   /*
@@ -355,6 +355,10 @@ class Graph {
 
   }
 
+}
+
+class DirectedGraph extends Graph {
+  
 }
 
 /*
