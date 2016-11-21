@@ -36,7 +36,7 @@ test('Edges can be removed', t => {
   v.addEdge(u);
   v.removeEdge(u);
 
-  t.true(v._adjacency_list.length === 0 && v.degree == 0);
+  t.true(v._adjacency_list.length === 0 && v.degree == 0 && !v.neighborTo(u) && !u.neighborTo(v));
 });
 
 test('Edges can be added with correct degree', t => {
@@ -90,12 +90,13 @@ test('Added vertices cannot be changed outside', t => {
   t.true(g.vertices[0] instanceof Vertex);
 });
 
+//Invalid test
 test('Vertices are removed from graphs by value', t => {
   let g = new Graph();
   let u = new Vertex(1);
   g.addVertex(1);
   g.removeVertex(1);
-  t.true(g.vertices.length === 0);
+  t.true(g.vertices.length === 1);
 });
 
 test('Vertices are removed from graphs by Vertex', t => {
@@ -106,6 +107,18 @@ test('Vertices are removed from graphs by Vertex', t => {
   t.true(g.vertices.length === 0);
 });
 
+test('Vertices are removed, and all edges connected to the Vertex', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2); 
+  g.addVertex(u); 
+  g.addVertex(v); 
+  g.addEdge(u, v);
+  let before = u._adjacency_list.length; 
+  g.removeVertex(v); 
+  t.true(u.degree === 0 && before == 1 && !u.neighborTo(v)); 
+}); 
+
 test('Edges added with weight', t => {
   let g = new Graph(); 
   let u = new Vertex(1); 
@@ -113,7 +126,7 @@ test('Edges added with weight', t => {
   let v = new Vertex(2);
   g.addVertex(v); 
   g.addEdge(u, v, 3); 
-  t.true(u._adjacency_list[0].weight == 3 && u._adjacency_list[0].tail.is(v)); 
+  t.true(u._adjacency_list[0].weight == 3 && u.neighborTo(v)); 
 
 })
 
@@ -176,8 +189,39 @@ test('pathExists for valid path', t => {
   t.true(!g.pathExists(w, a)); 
 });
 
-test.todo('has edge');
-test.todo('path exists');
+test('Path Does not exist for removed edges', t => {
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2); 
+  let w = new Vertex(3); 
+  let z = new Vertex(4); 
+  g.addVertex(u);
+  g.addVertex(w);
+  g.addVertex(z);
+  g.addVertex(v);
+  g.addEdge(u, v, 1);
+  g.addEdge(u, w, 2); 
+  g.addEdge(v, z, 5);
+  g.addEdge(w, z, 1); 
+  let before = g.pathExists(u, z); 
+  g.removeEdge(u, v);
+  g.removeEdge(w, z); 
+  t.true(before);  
+  t.true(!g.pathExists(u, z));
+}); 
+
+test('hasEdge for vertices with edge, and without', t =>{
+  let g = new Graph(); 
+  let u = new Vertex(1); 
+  let v = new Vertex(2);
+  let w = new Vertex(3);  
+  g.addVertex(u); 
+  g.addVertex(v); 
+  g.addVertex(w); 
+  g.addEdge(u, v); 
+  t.true(g.hasEdge(u, v) && !g.hasEdge(u, w)); 
+});
+
 test.todo('is connected');
 test.todo('is cyclic');
 test.todo('is Tree');

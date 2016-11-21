@@ -84,7 +84,7 @@ class Vertex {
   is(v) {
     return _.isEqual(this,v);
   }
-};
+}
 
 /*
  *
@@ -100,9 +100,8 @@ class Edge {
  *
  */
 class Graph {
-  constructor(directed) {
+  constructor() {
     this.vertices = [];
-    this.isDirected = directed || false;
     this._isConnected = null; 
     this._isCyclic = null; 
     this._size = 0;
@@ -154,12 +153,15 @@ class Graph {
    *  @return {bool}
    */
   removeVertex(v) {
-    let temp_v = v;
-    if (!(v instanceof Vertex)) {
-      temp_v = new Vertex(v);
-    }
+
+    // Remove any incoming edges to this vertex
     for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i].is(temp_v)) {
+      this.vertices[i].removeEdge(v); 
+    }
+
+    // Remove from Vertex List 
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (this.vertices[i].is(v)) {
         this.vertices.splice(i, 1);
 
         // vertex removed
@@ -199,15 +201,10 @@ class Graph {
     if (!weight) {
       weight = 1; 
     }
-    this.size = this.size + v1.addEdge(v2, weight);
-    this._update(); 
-    
 
-    // If undirected graph, add the other direction as well
-    if (!this.isDirected) {
-      this.size = this.size + v2.addEdge(v1, weight);
-      this._update(); 
-    }
+    this.size = this.size + v1.addEdge(v2, weight);
+    this.size = this.size + v2.addEdge(v1, weight);
+    this._update(); 
   }
 
   /*
@@ -229,17 +226,10 @@ class Graph {
    *  @param {Vertex} v1
    *  @param {Vertex} v2
    */
-  removeEdge(v1, v2) {
-    isRemoved = v1.removeEdge(v2); 
-    this.size = this.size - isRemoved; 
+  removeEdge(v1, v2) { 
+    this.size = this.size - v1.removeEdge(v2); 
+    this.size = this.size - v2.removeEdge(v1); 
     this._update(); 
-
-    // If graph is undirected, remove the other direction
-    if(!this.isDirected) {
-      isRemoved = v2.removeEdge(v1); 
-      this.size = this.size - isRemoved; 
-      this._update(); 
-    }
   } 
 
   /*
@@ -307,16 +297,19 @@ class Graph {
     const compareNumbers = (a, b) => a._distance - b._distance;
 
     let q = new PriorityQueue({comparator: compareNumbers}); 
+  
+    // Set all parents to null before hand
+    for (let i = 0; i < this.vertices.length; i++) {
+      this.vertices[i]._parent = null;
+      this.vertices[i]._distance = Number.MAX_SAFE_INTEGER; 
+      this.vertices[i]._visited = false; 
+    }
+
+    // Initialize attributes of source vertex 
     let distance = 0; 
     v1._distance = 0; 
     let currentVertex = v1;  
     currentVertex._visited = true; 
-
-    // Set all parents to null before hand
-    for (let i = 0; i < this.vertices.length; i++) {
-      this.vertices[i].parent = null;
-      this.vertices[i].parent = Number.MAX_SAFE_INTEGER; 
-    }
 
     q.queue(currentVertex);
     while (q.length != 0) {
@@ -358,7 +351,19 @@ class Graph {
 }
 
 class DirectedGraph extends Graph {
-  
+  addEdge(v1, v2, weight) {
+    if (!weight) {
+      weight = 1; 
+    }
+    
+    this.size = this.size + v1.addEdge(v2, weight);
+  }
+
+  removeEgde(v1, v2, weight) {
+    isRemoved = v1.removeEdge(v2); 
+    this.size = this.size - isRemoved; 
+    this._update(); 
+  }
 }
 
 /*
